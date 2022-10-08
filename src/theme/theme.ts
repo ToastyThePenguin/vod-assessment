@@ -5,20 +5,20 @@ import typography from './typography';
 const theme = createTheme({
   palette: {
     background: {
-      default: '#F4F6F8',
-      paper: '#FFFFFF'
+      default: '#121212',
+      paper: '#333'
     },
     primary: {
       contrastText: '#ffffff',
-      main: '#4f4f4f',
+      main: '#27c6c4',
     },
     secondary: {
       contrastText: '#ffffff',
-      main: '#d23333',
+      main: '#c32bc9',
     },
     text: {
       primary: '#171717',
-      secondary: '#d23333',
+      secondary: '#c32bc9',
     }
   },
   shadows,

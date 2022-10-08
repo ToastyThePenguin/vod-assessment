@@ -1,21 +1,40 @@
 import { useRoutes } from 'react-router-dom';
-import { ThemeProvider } from '@mui/material';
-import { Provider } from 'react-redux';
-import store from './store';
-import CustomAlert from './components/customAlert';
+import { ThemeProvider, GlobalStyles } from '@mui/material';
 import routes from './routes';
 import theme from './theme/theme';
 
-const App: React.FC = () => {
+const App = () => {
   const routing = useRoutes(routes);
 
   return (
-      <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <CustomAlert />
-          {routing}
-        </ThemeProvider>
-      </Provider>
+      <ThemeProvider theme={theme}>
+        <GlobalStyles styles={{     
+          '*': {
+            boxSizing: 'border-box',
+            margin: 0,
+            padding: 0,
+          },
+          html: {
+            '-webkit-font-smoothing': 'antialiased',
+            '-moz-osx-font-smoothing': 'grayscale',
+            height: '100%',
+            width: '100%'
+          },
+          body: {
+            backgroundColor: '#f4f6f8',
+            height: '100%',
+            width: '100%'
+          },
+          a: {
+            textDecoration: 'none'
+          },
+          '#root': {
+            height: '100%',
+            width: '100%'
+          }
+    }} />
+        {routing}
+      </ThemeProvider>
   );
 };
 
