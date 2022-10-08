@@ -22,6 +22,17 @@ class ContentService {
             return { success: false, message: error };
           }; 
     }
+
+    static getChildren = async(guid: string) => {
+        try {
+            const url = services.content.getChildren.replace(':guid', guid)
+            const response = await fetch(url)
+            return response.json()
+        } catch (error) {
+            console.log(error);
+            return { success: false, message: error };
+          }; 
+    }
 }
 
 export default ContentService;

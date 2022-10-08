@@ -7,6 +7,9 @@ import PageWrapper from '../components/pageWrapper';
 import BoxColumn from '../components/boxColumn';
 import BoxCentredRow from '../components/boxCentredRow';
 import { useNavigate } from 'react-router-dom';
+import Helpers from '../utils/helpers';
+import RoundedButton from '../components/roundedButton';
+import { PlayCircle } from '@mui/icons-material';
 
 const LandingPage = () => {
     const navigate = useNavigate();
@@ -53,7 +56,7 @@ const LandingPage = () => {
     setLoading(false);
     }
 
-    const navigateToMedia = (mediaItem: any) => navigate(`/media/${mediaItem.guid}/`)
+    const navigateToMedia = (mediaItem: any) => navigate(mediaItem.type === 'series' ? `/series/${mediaItem.guid}/` : `/media/${mediaItem.guid}/`)
 
     const renderLineItem = (item: any) => {
         const image = require('../assets/placeholder.png')
@@ -95,6 +98,7 @@ const LandingPage = () => {
 
     const renderFeatured = () => {
         const featuredItem: any = featured[featuredIndex]
+        console.log(featuredItem)
         const image = require('../assets/placeholder.png')
         return (
             <BoxColumn sx={{
@@ -106,11 +110,12 @@ const LandingPage = () => {
                 padding: 3,
                 marginBottom: 4
             }}>
-                <Box sx={{ background: 'rgba(0,0,0, .2)', padding: 1, maxWidth: '60%' }}>
+                <Box sx={{ background: 'rgba(0,0,0,.2)', padding: 1, maxWidth: '70%' }}>
                     <Typography variant={'h1'} color={'white'} fontWeight={'bold'} sx={{ marginBottom: 2 }}>{featuredItem.name}</Typography>
-                    <Typography color={'white'} variant={'h5'}>{`${featuredItem.year} | ${featuredItem.duration ? `${featuredItem.duration}min` : ''}`}</Typography>
-                    <Typography color={'white'} variant={'h5'}sx={{ marginBottom: 1 }}>{featuredItem.genre.reduce((str: string, genre: string) => str.concat(genre + ' | '), '')}</Typography>
-                    <Typography color={'white'} sx={{ wordWrap: 'break-word' }}>{featuredItem.description}</Typography>
+                    <Typography color={'white'} variant={'h5'}>{`${featuredItem.year} | ${Helpers.capitaliseString(featuredItem.type)}`}</Typography>
+                    <Typography color={'white'} variant={'h5'}sx={{ marginBottom: 1 }}>{Helpers.formatGenres(featuredItem.genre)}</Typography>
+                    <RoundedButton label={'Play'} icon={PlayCircle} onClick={() => navigateToMedia(featuredItem)}/>
+                    <Typography color={'white'} sx={{ wordWrap: 'break-word', marginTop: 2 }}>{featuredItem.description}</Typography>
                 </Box>
             </BoxColumn>
         )
@@ -119,11 +124,11 @@ const LandingPage = () => {
     return (
         <PageWrapper>
             <Navbar/>
-            <Box sx={{ marginTop: 10, width: '100%' }}>
+            <Box sx={{ marginTop: 12, width: '100%' }}>
                 {
                     loading
                     ?
-                    <BoxCentredRow sx={{ width: '100%' }}>
+                    <BoxCentredRow sx={{ width: '100%', marginBottom: 4 }}>
                         <CircularProgress/>
                     </BoxCentredRow>                    
                     :
