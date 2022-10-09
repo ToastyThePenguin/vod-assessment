@@ -8,6 +8,7 @@ import ContentService from '../services/contentService';
 import { useParams, useNavigate } from 'react-router-dom';
 import Helpers from '../utils/helpers';
 import BoxRow from '../components/boxRow';
+import { Episode, Season, Series } from '../models/content';
 
 const image = require('../assets/placeholder.png')
 
@@ -16,9 +17,9 @@ const SeriesPage = () => {
     const navigate = useNavigate();
 
     const [loading, setLoading] = useState(false);
-    const [series, setSeries] = useState<any>(null);
+    const [series, setSeries] = useState<Series | null>(null);
     const [loadingSeasons, setLoadingSeasons] = useState(false);
-    const [seasons, setSeasons] = useState<any[]>([]);
+    const [seasons, setSeasons] = useState<Season[]>([]);
 
 
     useEffect(() => {
@@ -35,18 +36,17 @@ const SeriesPage = () => {
     }
 
     useEffect(() => {
-        if (!series) return
         getEpisodes()
     }, [series])
 
     const getEpisodes = async () => {
-        if (!guid) return
+        if (!guid || !series) return
         setLoadingSeasons(true)
         const response = await ContentService.getChildren(guid);
         if (!response || response === 'not found') return
-        const groupedEps = series.seasons.map((season: any) => {
-            const episodeData = response.filter((episode: any) => episode.season === season.season)
-            episodeData.sort((a: any, b: any) => a.episode - b.episode);
+        const groupedEps = series.seasons.map((season: Season) => {
+            const episodeData = response.filter((episode: Episode) => episode.season === season.season)
+            episodeData.sort((a: Episode, b: Episode) => a.episode - b.episode);
             season.episodeData = episodeData
             return season;
         });
@@ -54,9 +54,9 @@ const SeriesPage = () => {
         setLoadingSeasons(false)
     }
 
-    const navigateToMedia = (mediaItem: any) => navigate(`/media/${mediaItem.guid}/`)
+    const navigateToMedia = (mediaItem: Episode) => navigate(`/media/${mediaItem.guid}/`)
 
-    const renderLineItem = (item: any) => {
+    const renderLineItem = (item: Episode) => {
         const image = require('../assets/placeholder.png')
         return (
             <BoxColumn
@@ -82,13 +82,13 @@ const SeriesPage = () => {
         )
     }
 
-    const renderSeason = (season: any) => {
+    const renderSeason = (season: Season) => {
         return (
             <Box key={season.season} sx={{ marginBottom: 5 }}>
                 <Typography variant={'h3'} color={'primary'} sx={{ marginBottom: 2 }}>{`Season ${season.season} | ${season.episodes} Episodes`}</Typography>
                 <BoxRow sx={{ overflowX: 'scroll', paddingBottom: 1 }}>
                     {
-                        season.episodeData.map((item: any) => renderLineItem(item))
+                        season.episodeData.map((item) => renderLineItem(item))
                     }
                 </BoxRow>
             </Box>

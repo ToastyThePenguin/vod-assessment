@@ -10,12 +10,13 @@ import { useNavigate } from 'react-router-dom';
 import Helpers from '../utils/helpers';
 import RoundedButton from '../components/roundedButton';
 import { PlayCircle } from '@mui/icons-material';
+import { Collection, MediaItem } from '../models/content';
 
 const LandingPage = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
-    const [collections, setCollections] = useState([]);
-    const [featured, setFeatured] = useState([]);
+    const [collections, setCollections] = useState<Collection[]>([]);
+    const [featured, setFeatured] = useState<MediaItem[]>([]);
     const [featuredIndex, setFeaturedIndex] = useState(0);
 
     const useInterval = (callback: any, delay: number | null) => {
@@ -35,6 +36,7 @@ const LandingPage = () => {
           }
         }, [delay]);
     }
+    // cycle through featured items every 5s
     useInterval(() => setFeaturedIndex(featuredIndex === featured.length -1 ? 0 : featuredIndex + 1), 5000)  
     
     // on load fetch content
@@ -50,15 +52,15 @@ const LandingPage = () => {
     setCollections(response);
 
     // find featured media
-    const flattenedCollections = response.reduce((arr: any[], collection: any) => arr.concat(collection.children), [])
-    const filteredArr = flattenedCollections.filter((item: any) => item.featured)
+    const flattenedCollections = response.reduce((arr: MediaItem[], collection: Collection) => arr.concat(collection.children), [])
+    const filteredArr = flattenedCollections.filter((item: MediaItem) => item.featured)
     setFeatured(filteredArr)
     setLoading(false);
     }
 
-    const navigateToMedia = (mediaItem: any) => navigate(mediaItem.type === 'series' ? `/series/${mediaItem.guid}/` : `/media/${mediaItem.guid}/`)
+    const navigateToMedia = (mediaItem: MediaItem) => navigate(mediaItem.type === 'series' ? `/series/${mediaItem.guid}/` : `/media/${mediaItem.guid}/`)
 
-    const renderLineItem = (item: any) => {
+    const renderLineItem = (item: MediaItem) => {
         const image = require('../assets/placeholder.png')
         return (
             <BoxColumn
@@ -83,13 +85,13 @@ const LandingPage = () => {
         )
     }
 
-    const renderCollection = (collection: any) => {
+    const renderCollection = (collection: Collection) => {
         return (
             <Box key={collection.guid} sx={{ marginBottom: 5 }}>
                 <Typography variant={'h3'} color={'primary'} sx={{ marginBottom: 2 }}>{collection.name}</Typography>
                 <BoxRow sx={{ overflowX: 'scroll', paddingBottom: 1 }}>
                     {
-                        collection.children.map((item: any) => renderLineItem(item))
+                        collection.children.map((item: MediaItem) => renderLineItem(item))
                     }
                 </BoxRow>
             </Box>
@@ -97,7 +99,7 @@ const LandingPage = () => {
     }
 
     const renderFeatured = () => {
-        const featuredItem: any = featured[featuredIndex]
+        const featuredItem: MediaItem = featured[featuredIndex]
         console.log(featuredItem)
         const image = require('../assets/placeholder.png')
         return (

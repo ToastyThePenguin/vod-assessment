@@ -1,16 +1,17 @@
-import { Box, CircularProgress, getCardMediaUtilityClass, Typography } from '@mui/material';
+import { Box, CircularProgress, Typography } from '@mui/material';
 import Navbar from '../components/navbar';
 import PageWrapper from '../components/pageWrapper';
 import BoxCentredRow from '../components/boxCentredRow';
 import { useEffect, useState } from 'react';
 import ContentService from '../services/contentService';
 import { useParams } from 'react-router-dom';
+import { MediaItem } from '../models/content';
 
 const MediaItemPage = () => {
     const { guid } = useParams();
 
     const [loading, setLoading] = useState(false);
-    const [media, setMedia] = useState<any>(null);
+    const [media, setMedia] = useState<MediaItem | null>(null);
 
     useEffect(() => {
         getMedia()

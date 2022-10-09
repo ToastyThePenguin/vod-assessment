@@ -1,70 +1,35 @@
-# Getting Started with Create React App
+# VoD Assessment
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+As per the assessment spec, this project creates a React app containing a landing page with categorized showreels of media collections as well as a cycling hero component of featured content.
 
-## Available Scripts
+Additionally, clicking on a media item will either take the user to a new page where they would play the media or, in the case of series, a dedicated page showing an overview of the series with episodes grouped by season.
 
-In the project directory, you can run:
+A deployed (via Amplify) version of the app can be found [https://master.d199m9q8dcc7n6.amplifyapp.com/](here).
+
+
+## Instructions for Local Operation
+
+Just like any out of the box CRA, simply follow these steps to get up and running in your local environment:
+### add .env file containing `REACT_APP_API_URL=https://sqjqk3kqk3.execute-api.eu-west-1.amazonaws.com/stage` //NB: placing this sort of info in a README would be highly inadvisable under any other circumstances
+
+### `npm install`
 
 ### `npm start`
+
+### profit
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+## Challenges and Limitations
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Unfortunately I was not able to make use of the actual background or poster images for media due to not having the base S3 URL.
+Additionally so for streaming the actual content. More so, due to my unfamiliarity with video playback and streaming media, this functionality was omitted.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Proposed Improvements
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Given more time I would greatly improve the UX and UI. Giving the featured hero component interaction should the user wish to manually scroll through it. Include quality of life visual cues such as enlarging or highlighting when a user hovers over an item. Build out dedicated pages for movies and series. Build out a functional video player page.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Additionally, with more time and given the proposed larger scope, I would implement Redux state management, enforce stronger typing and make greater use of shared components (e.g. for media cards in showreels).
