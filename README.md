@@ -4,19 +4,19 @@ As per the assessment spec, this project creates a React app containing a landin
 
 Additionally, clicking on a media item will either take the user to a new page where they would play the media or, in the case of series, a dedicated page showing an overview of the series with episodes grouped by season.
 
-A deployed (via Amplify) version of the app can be found [https://master.d199m9q8dcc7n6.amplifyapp.com/](here).
+A deployed (via Amplify) version of the app can be found [here](https://master.d199m9q8dcc7n6.amplifyapp.com/).
 
 
 ## Instructions for Local Operation
 
 Just like any out of the box CRA, simply follow these steps to get up and running in your local environment:
-### add .env file containing `REACT_APP_API_URL=https://sqjqk3kqk3.execute-api.eu-west-1.amazonaws.com/stage` //NB: placing this sort of info in a README would be highly inadvisable under any other circumstances
+1. add .env file containing `REACT_APP_API_URL=https://sqjqk3kqk3.execute-api.eu-west-1.amazonaws.com/stage` *NB: placing this sort of info in a README would be highly inadvisable under any other circumstances*
 
-### `npm install`
+2. `npm install`
 
-### `npm start`
+3. `npm start`
 
-### profit
+4. profit
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
